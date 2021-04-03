@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
 import Home from './Home';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     return (
         <React.Fragment>
-            <Home/>
+            <main>
+                <Home/>
+            </main>
+            
         </React.Fragment>
     );
 }
