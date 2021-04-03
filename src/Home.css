@@ -62,16 +62,42 @@ section#home-section {
     background-position: top right;
 }
 section#home-section div.page {
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: 10%;
+    padding-bottom: 7%;
 }
 div.overview-card {
     background-color: var(--blue-color);
 }
 table.overview-table tr td {
+    width: 33.33%;
     border: 2px solid var(--white-color);
+}
+table.overview-table tr td h5 {
+    font-size: 20px;
+}
+table.overview-table tr td h2 {
+    font-size: 40px;
 }
 div.search-box {
     border: 2px solid var(--blue-color);
     border-radius: 7px;
+}
+div.search-box div input {
+    outline: none;
+}
+div.search-box div input::placeholder {
+    color: var(--blue-color);
+}
+
+@media (max-width:767px) {
+    section#home-section div.page {
+        padding-top: 25%;
+        padding-bottom: 10%;
+    }
+    table.overview-table tr td h5 {
+        font-size: 15px;
+    }
+    table.overview-table tr td h2 {
+        font-size: 15px;
+    }
 }

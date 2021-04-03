@@ -12,6 +12,13 @@ main {
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
+a.footer-link {
+    font-size: 14px;
+    color: #074883;
+}
+footer div.footer-2 {
+    background-color: #074883;
+}
 
 @media (max-width: 767px) {
     * {

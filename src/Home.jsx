@@ -7,8 +7,8 @@ class Home extends React.Component {
         super(props);
         this.state = {
             NewConfirmed: 0,
-            NewDeaths: 0,
-            NewRecovered: 0
+            TotalConfirmed: 0,
+            TotalDeaths: 0,
         };
     }
 
@@ -18,7 +18,10 @@ class Home extends React.Component {
             return jsonFprmat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData);
+            console.log(actualData.Global);
+            this.setState({ NewConfirmed: (actualData.Global.NewConfirmed)});
+            this.setState({ TotalConfirmed: (actualData.Global.TotalConfirmed)});
+            this.setState({ TotalDeaths: (actualData.Global.TotalDeaths)});
         }).
         catch((error)=> {
             throw(error);
@@ -34,10 +37,6 @@ class Home extends React.Component {
             <React.Fragment>
                 <section id="home-section">
                     <br/>
-                    <div className="container card-body">
-                        <a href="#" className="card-link text-blue logo">Covid Cases Status</a>
-                    </div>
-                    <br/>
                     <div className="container page">
 
                         {/* Introduction (Start) */}
@@ -50,10 +49,11 @@ class Home extends React.Component {
                                         <a href="#" className="btn btn-theme-1 px-4 my-2 mr-3 shadow">Get Started</a>
                                         <a href="#" className="btn btn-theme-2 px-4 my-2 mr-3 shadow"><img src="assets/icons/search.svg" alt="search-icon" className="btn-icon"/> Search</a>
                                     </div>
+                                    <br/>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-12">
-                                <img src="assets/images/img-1.png" className="img-fluid" alt="doctors-image"/>
+                                <img src="assets/images/img-1.svg" className="img-fluid" alt="doctors-image"/>
                             </div>
                         </div>
                         {/* Introduction (End) */}
@@ -62,20 +62,22 @@ class Home extends React.Component {
                         <div className="card shadow overview-card mt-5">
                             <div className="card-body text-center pb-1">
                                 <table className="table overview-table">
+                                    <tbody>
                                     <tr>
-                                        <td className="p-3 border-top-0 border-bottom-0 border-left-0">
-                                            <h5 className="text-light">Todays</h5>
-                                            <h2 className="text-light mt-2">1,78,159</h2>
+                                        <td className="py-2 border-top-0 border-bottom-0 border-left-0">
+                                            <h5 className="text-light mt-2">New Confirmed</h5>
+                                            <h2 className="text-light mt-2">{this.state.NewConfirmed}</h2>
                                         </td>
-                                        <td className="p-3 border-top-0 border-bottom-0">
-                                            <h5 className="text-light">Total</h5>
-                                            <h2 className="text-light mt-2">1,78,159</h2>
+                                        <td className="py-2 border-top-0 border-bottom-0">
+                                            <h5 className="text-light mt-2">Total Confirmed</h5>
+                                            <h2 className="text-light mt-2">{this.state.TotalConfirmed}</h2>
                                         </td>
-                                        <td className="p-3 border-top-0 border-bottom-0 border-right-0">
-                                            <h5 className="text-light">Death's</h5>
-                                            <h2 className="text-light mt-2">1,78,159</h2>
+                                        <td className="py-2 border-top-0 border-bottom-0 border-right-0">
+                                            <h5 className="text-light mt-2">Total Deaths</h5>
+                                            <h2 className="text-light mt-2">{this.state.TotalDeaths}</h2>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
