@@ -8,13 +8,66 @@
     font-size: 1.2rem;
 }
 
+*.text-blue {
+    color: var(--blue-color);
+}
+*.text-light-blue {
+    color: var(--light-blue-color);
+}
+
+a.btn-theme-1,
+button.btn-theme-1 {
+    border-radius: 7px;
+    border: 2px solid var(--blue-color);
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
+a.btn-theme-1:hover,
+button.btn-theme-1:hover {
+    border: 2px solid var(--blue-color);
+    background-color: var(--dark-blue-color);
+    color: var(--white-color);
+}
+
+a.btn-theme-2,
+button.btn-theme-2 {
+    border-radius: 7px;
+    border: 2px solid var(--blue-color);
+    background-color: var(--white-color);
+    color: var(--blue-color);
+}
+a.btn-theme-2:hover,
+button.btn-theme-2:hover {
+    border: 2px solid var(--dark-blue-color);
+    background-color: var(--white-color);
+    color: var(--dark-blue-color);
+}
+img.btn-icon {
+    height: 20px;
+    width: 20px;
+    margin-top: -2px;
+}
+
 main {
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background-color: transparent;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    background-image: url('images/wave-1.svg');
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: top right;
 }
 a.footer-link {
     font-size: 14px;
     color: #074883;
+}
+img.footer-icon {
+    margin-top: -3px;
 }
 footer div.footer-2 {
     background-color: #074883;
@@ -23,5 +76,8 @@ footer div.footer-2 {
 @media (max-width: 767px) {
     * {
         font-size: 0.9rem;
+    }
+    main {
+        background-size: 80%;
     }
 }

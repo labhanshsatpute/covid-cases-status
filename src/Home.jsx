@@ -1,5 +1,19 @@
 import React from 'react';
+import { Link, Route } from 'react-router-dom';
 import './Home.css';
+
+const DataCard = () => {
+    return (
+        <React.Fragment>
+            <div className="card w-100 shadow">
+                <div className="card-body">
+                    
+                </div>
+            </div>
+        </React.Fragment>
+    );
+}
+
 
 class Home extends React.Component {
 
@@ -9,6 +23,8 @@ class Home extends React.Component {
             NewConfirmed: 0,
             TotalConfirmed: 0,
             TotalDeaths: 0,
+            Date: 0,
+            searchQuery: " ",
         };
     }
 
@@ -18,10 +34,11 @@ class Home extends React.Component {
             return jsonFprmat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData.Global);
+            console.log(actualData);
             this.setState({ NewConfirmed: (actualData.Global.NewConfirmed)});
             this.setState({ TotalConfirmed: (actualData.Global.TotalConfirmed)});
             this.setState({ TotalDeaths: (actualData.Global.TotalDeaths)});
+            this.setState({ Date: (actualData.Global.Date)});
         }).
         catch((error)=> {
             throw(error);
@@ -37,17 +54,17 @@ class Home extends React.Component {
             <React.Fragment>
                 <section id="home-section">
                     <br/>
-                    <div className="container page">
+                    <div className="container">
 
                         {/* Introduction (Start) */}
                         <div className="row">
                             <div className="col-lg-6 col-md-6 col-sm-1">
                                 <div className="mt-3 text-lg-left text-md-left text-sm-center text-center">
                                     <h1 className="font-weight-bold display-4 text-blue">COVID - 19 <br/> Cases Statistics</h1>
-                                    <h5 className="text-blue my-3">Get real time world wide corona virus <br/> cases status</h5>
+                                    <p className="text-blue my-3">Get real time world wide corona virus <br/> cases statistics</p>
                                     <div className="mt-3">
-                                        <a href="#" className="btn btn-theme-1 px-4 my-2 mr-3 shadow">Get Started</a>
-                                        <a href="#" className="btn btn-theme-2 px-4 my-2 mr-3 shadow"><img src="assets/icons/search.svg" alt="search-icon" className="btn-icon"/> Search</a>
+                                        <a href="#" className="btn btn-theme-1 px-4 my-2 mr-3">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon ml-1"/></a>
+                                        <a href="#" className="btn btn-theme-2 px-4 my-2 mr-3"><img src="assets/icons/search.svg" alt="search-icon" className="btn-icon mr-1"/> Search</a>
                                     </div>
                                     <br/>
                                 </div>
@@ -59,9 +76,10 @@ class Home extends React.Component {
                         {/* Introduction (End) */}
 
                         {/* Statistics Overview (Start) */}
-                        <div className="card shadow overview-card mt-5">
+                        <div className="card overview-card mt-5">
                             <div className="card-body text-center pb-1">
-                                <table className="table overview-table">
+                                <h5 className="text-light">Today's Statistics</h5>
+                                <table className="table overview-table mt-3">
                                     <tbody>
                                     <tr>
                                         <td className="py-2 border-top-0 border-bottom-0 border-left-0">
@@ -82,19 +100,10 @@ class Home extends React.Component {
                             </div>
                         </div>
                         <br/>
+                        <Link to="/view"><a href="#" className="btn btn-theme-1 px-4 mx-auto text-center">View more</a></Link>
+                        
+                        <br/>
                         {/* Statistics Overview (Start) */}
-
-                        {/* Search Bar (Start) */}
-                        <div className="card bg-transparent search-box mt-5 shadow">
-                            <div className="card-body p-2">
-                                <div className="input-group-prepend input-group-append w-100">
-                                    <a href="#" className="btn bg-transparent border-0"><img src="assets/icons/search.svg" alt="search-country"/></a>
-                                    <input type="search" className="input-group-text w-100 bg-transparent border-0 text-left text-blue" placeholder="Search Countries"/>
-                                    <button type="submit" className="btn btn-theme-1 px-4">Search</button>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Search Bar (End) */}
                         
                     </div>
                     <br/>
