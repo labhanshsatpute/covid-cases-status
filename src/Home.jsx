@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
 import './Home.css';
 
-const DataCard = () => {
+const StatisticsCard = (props) => {
     return (
         <React.Fragment>
-            <div className="card w-100 shadow">
-                <div className="card-body">
-                    
+            <div className="col-lg-4 col-md-6 col-sm-12 p-2">
+                <div className="card statistics-card">
+                    <div className="card-body pb-2">
+                        <p className="mb-1 title">{props.title}</p>
+                        <h1>{props.statistics}</h1>
+                    </div>
                 </div>
             </div>
         </React.Fragment>
@@ -21,10 +23,12 @@ class Home extends React.Component {
         super(props);
         this.state = {
             NewConfirmed: 0,
+            NewDeaths: 0,
+            NewRecovered: 0,
             TotalConfirmed: 0,
             TotalDeaths: 0,
-            Date: 0,
-            searchQuery: " ",
+            TotalRecovered: 0,
+            countries: [],
         };
     }
 
@@ -36,9 +40,11 @@ class Home extends React.Component {
         then( (actualData)=> {
             console.log(actualData);
             this.setState({ NewConfirmed: (actualData.Global.NewConfirmed)});
+            this.setState({ NewDeaths: (actualData.Global.NewDeaths)});
+            this.setState({ NewRecovered: (actualData.Global.NewRecovered)});
             this.setState({ TotalConfirmed: (actualData.Global.TotalConfirmed)});
             this.setState({ TotalDeaths: (actualData.Global.TotalDeaths)});
-            this.setState({ Date: (actualData.Global.Date)});
+            this.setState({ TotalRecovered: (actualData.Global.TotalRecovered)});
         }).
         catch((error)=> {
             throw(error);
@@ -62,10 +68,7 @@ class Home extends React.Component {
                                 <div className="mt-3 text-lg-left text-md-left text-sm-center text-center">
                                     <h1 className="font-weight-bold display-4 text-blue">COVID - 19 <br/> Cases Statistics</h1>
                                     <p className="text-blue my-3">Get real time world wide corona virus <br/> cases statistics</p>
-                                    <div className="mt-3">
-                                        <a href="#" className="btn btn-theme-1 px-4 my-2 mr-3">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon ml-1"/></a>
-                                        <a href="#" className="btn btn-theme-2 px-4 my-2 mr-3"><img src="assets/icons/search.svg" alt="search-icon" className="btn-icon mr-1"/> Search</a>
-                                    </div>
+                                    <a href="#Statistics" className="btn btn-theme-1 mt-2">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon ml-1"/></a>
                                     <br/>
                                 </div>
                             </div>
@@ -75,35 +78,23 @@ class Home extends React.Component {
                         </div>
                         {/* Introduction (End) */}
 
-                        {/* Statistics Overview (Start) */}
-                        <div className="card overview-card mt-5">
-                            <div className="card-body text-center pb-1">
-                                <h5 className="text-light">Today's Statistics</h5>
-                                <table className="table overview-table mt-3">
-                                    <tbody>
-                                    <tr>
-                                        <td className="py-2 border-top-0 border-bottom-0 border-left-0">
-                                            <h5 className="text-light mt-2">New Confirmed</h5>
-                                            <h2 className="text-light mt-2">{this.state.NewConfirmed}</h2>
-                                        </td>
-                                        <td className="py-2 border-top-0 border-bottom-0">
-                                            <h5 className="text-light mt-2">Total Confirmed</h5>
-                                            <h2 className="text-light mt-2">{this.state.TotalConfirmed}</h2>
-                                        </td>
-                                        <td className="py-2 border-top-0 border-bottom-0 border-right-0">
-                                            <h5 className="text-light mt-2">Total Deaths</h5>
-                                            <h2 className="text-light mt-2">{this.state.TotalDeaths}</h2>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                        {/* All Statistics (Start) */}
+                        <div className="container" id="Statistics">
+                            <h2 className="text-blue">All Statistics</h2>
+                            <hr className="w-25"/>
+
+                            <div className="row mt-3">
+
+                                <StatisticsCard title="New Confirmed" statistics={this.state.NewConfirmed}/>
+                                <StatisticsCard title="New Deaths" statistics={this.state.NewDeaths}/>
+                                <StatisticsCard title="New Recovered" statistics={this.state.NewRecovered}/>
+                                <StatisticsCard title="Total Confirmed" statistics={this.state.TotalConfirmed}/>
+                                <StatisticsCard title="Total Deaths" statistics={this.state.TotalDeaths}/>
+                                <StatisticsCard title="Total Recovered" statistics={this.state.TotalRecovered}/>
+
                             </div>
                         </div>
-                        <br/>
-                        <Link to="/view"><a href="#" className="btn btn-theme-1 px-4 mx-auto text-center">View more</a></Link>
-                        
-                        <br/>
-                        {/* Statistics Overview (Start) */}
+                        {/* All Statistics (Start) */}
                         
                     </div>
                     <br/>

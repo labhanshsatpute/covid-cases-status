@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import Home from './Home';
-import Search from './Search';
-import ViewAllData from './ViewAllData';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -16,8 +14,6 @@ const App = () => {
                 <main>
                     <Switch>
                         <Route exact path="/" component={Home}/>
-                        <Route path="/search/" component={Search}/>
-                        <Route path="/view" component={ViewAllData}/>
                         <Redirect to="/" />
                     </Switch>
                 </main>

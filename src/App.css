@@ -5,7 +5,7 @@
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 *.text-blue {
@@ -28,23 +28,9 @@ button.btn-theme-1:hover {
     background-color: var(--dark-blue-color);
     color: var(--white-color);
 }
-
-a.btn-theme-2,
-button.btn-theme-2 {
-    border-radius: 7px;
-    border: 2px solid var(--blue-color);
-    background-color: var(--white-color);
-    color: var(--blue-color);
-}
-a.btn-theme-2:hover,
-button.btn-theme-2:hover {
-    border: 2px solid var(--dark-blue-color);
-    background-color: var(--white-color);
-    color: var(--dark-blue-color);
-}
 img.btn-icon {
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     margin-top: -2px;
 }
 

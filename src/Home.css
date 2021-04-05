@@ -18,28 +18,35 @@ section#home-section div.container {
     padding-top: 10%;
     padding-bottom: 5%;
 }
-div.overview-card {
-    background-color: var(--blue-color);
+div.statistics-card {
+    background-color: transparent;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+    color: var(--dark-blue-color);
 }
-table.overview-table tr td {
-    width: 33.33%;
-    border: 2px solid var(--white-color);
+div.statistics-card::after {
+    content: " ";
+    position: absolute;
+    height: 3%;
+    width: 100%;
+    bottom: 0px;
+    z-index: -1;
+    background-color: var(--dark-blue-color);
+    border-radius: 5px;
+    transition: 0.3s ease;
 }
-table.overview-table tr td h5 {
-    font-size: 20px;
+div.statistics-card:hover {
+    color: var(--white-color);
 }
-table.overview-table tr td h2 {
-    font-size: 40px;
+div.statistics-card:hover::after {
+    height: 100%;
+    transition: 0.3s ease;
 }
-div.search-box {
-    border: 2px solid var(--blue-color);
-    border-radius: 7px;
-}
-div.search-box div input {
-    outline: none;
-}
-div.search-box div input::placeholder {
-    color: var(--blue-color);
+div.statistics-card div p.title {
+    font-size: 17px;
 }
 
 @media (max-width:767px) {
