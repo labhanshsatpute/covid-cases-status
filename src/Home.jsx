@@ -34,8 +34,8 @@ class Home extends React.Component {
 
     fetchSummary() {
         fetch("https://api.covid19api.com/summary").
-        then( (jsonFprmat)=> {
-            return jsonFprmat.json();
+        then( (jsonFormat)=> {
+            return jsonFormat.json();
         }).
         then( (actualData)=> {
             console.log(actualData);
@@ -51,8 +51,22 @@ class Home extends React.Component {
         });
     }
 
+    fetchCountry() {
+        fetch("https://api.covid19api.com/countries").
+        then( (jsonFormat)=> {
+            return jsonFormat.json();
+        }).
+        then( (actualData)=> {
+            console.log(actualData);
+        }).
+        catch((error)=> {
+            throw(error);
+        });
+    }
+
     componentDidMount() {
         this.fetchSummary();
+        this.fetchCountry();
     }
 
     render() {
@@ -64,16 +78,19 @@ class Home extends React.Component {
 
                         {/* Introduction (Start) */}
                         <div className="row">
-                            <div className="col-lg-6 col-md-6 col-sm-1">
-                                <div className="mt-3 text-lg-left text-md-left text-sm-center text-center">
+                            <div className="col-lg-6 col-md-12 col-sm-1">
+                                <div className="text-lg-left text-md-center text-sm-center text-center">
+                                    <p className="text-blue font-weight-bold mb-0">Stay Home Stay Safe</p>
+                                    <hr className="w-100 mx-auto"/>
                                     <h1 className="font-weight-bold display-4 text-blue">COVID - 19 <br/> Cases Statistics</h1>
-                                    <p className="text-blue my-3">Get real time world wide corona virus <br/> cases statistics</p>
-                                    <a href="#Statistics" className="btn btn-theme-1 mt-2">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon ml-1"/></a>
+                                    <hr className="w-100 mx-lg-0 mx-md-auto mx-sm-auto"/>
+                                    <p className="text-blue">Get real time world wide corona virus <br/> cases statistics</p>
+                                    <a href="#Statistics" className="btn btn-theme-1 mt-2 px-4">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon"/></a>
                                     <br/>
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-6 col-sm-12">
-                                <img src="assets/images/img-1.svg" className="img-fluid" alt="doctors-image"/>
+                            <div className="col-lg-6 col-md-12 col-sm-12 card-body text-center">
+                                <img src="assets/images/img-1.svg" className="img-fluid mt-3 mx-auto" alt="doctors-image"/>
                             </div>
                         </div>
                         {/* Introduction (End) */}
@@ -82,7 +99,6 @@ class Home extends React.Component {
                         <div className="container" id="Statistics">
                             <h2 className="text-blue">All Statistics</h2>
                             <hr className="w-25"/>
-
                             <div className="row mt-3">
 
                                 <StatisticsCard title="New Confirmed" statistics={this.state.NewConfirmed}/>
@@ -95,6 +111,8 @@ class Home extends React.Component {
                             </div>
                         </div>
                         {/* All Statistics (Start) */}
+
+                       
                         
                     </div>
                     <br/>
