@@ -4,7 +4,7 @@ import './Home.css';
 const StatisticsCard = (props) => {
     return (
         <React.Fragment>
-            <div className="col-lg-4 col-md-6 col-sm-12 p-2">
+            <div className="col-lg-4 col-md-6 col-sm-12 card-body">
                 <div className="card statistics-card">
                     <div className="card-body pb-2">
                         <p className="mb-1 title">{props.title}</p>
@@ -28,7 +28,8 @@ class Home extends React.Component {
             TotalConfirmed: 0,
             TotalDeaths: 0,
             TotalRecovered: 0,
-            countries: [],
+            countryName: [],
+            countryStates: [],
         };
     }
 
@@ -38,7 +39,6 @@ class Home extends React.Component {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData);
             this.setState({ NewConfirmed: (actualData.Global.NewConfirmed)});
             this.setState({ NewDeaths: (actualData.Global.NewDeaths)});
             this.setState({ NewRecovered: (actualData.Global.NewRecovered)});
@@ -51,13 +51,46 @@ class Home extends React.Component {
         });
     }
 
-    fetchCountry() {
+    fetchCountryName() {
         fetch("https://api.covid19api.com/countries").
         then( (jsonFormat)=> {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
+            for (let i = 0; i < actualData.length; i++)
+            {
+                this.setState({ countryName: this.state.countryName.concat(actualData[i].Country)});
+                
+            }
+        }).
+        catch((error)=> {
+            throw(error);
+        });
+    }
+
+    fetchCountryData() {
+        let selectedCountry = document.getElementById('select-country').value;
+        selectedCountry = selectedCountry.toLowerCase();
+        if (selectedCountry == "none") {
+            alert("Please Select Country");
+        }
+        let url = "https://api.covid19api.com/live/country/" +selectedCountry + "/status/confirmed/date/2020-01-21T13:13:30Z";
+        this.fetchStates(url);
+    }
+
+    fetchStates(url) {
+        
+        fetch(url).
+        then( (jsonFormat)=> {
+            return jsonFormat.json();
+        }).
+        then( (actualData)=> {
             console.log(actualData);
+            this.setState({ countryStates: []});
+            for (let i = 0; i < 50; i++) {
+                let array = this.state.countryStates;
+                this.setState({ countryStates: array.concat( array[0] = new Array(actualData[i]))});
+            }     
         }).
         catch((error)=> {
             throw(error);
@@ -66,7 +99,7 @@ class Home extends React.Component {
 
     componentDidMount() {
         this.fetchSummary();
-        this.fetchCountry();
+        this.fetchCountryName();
     }
 
     render() {
@@ -95,9 +128,9 @@ class Home extends React.Component {
                         </div>
                         {/* Introduction (End) */}
 
-                        {/* All Statistics (Start) */}
+                        {/* Global Statistics (Start) */}
                         <div className="container" id="Statistics">
-                            <h2 className="text-blue">All Statistics</h2>
+                            <h2 className="text-blue">Global Statistics</h2>
                             <hr className="w-25"/>
                             <div className="row mt-3">
 
@@ -110,9 +143,47 @@ class Home extends React.Component {
 
                             </div>
                         </div>
-                        {/* All Statistics (Start) */}
+                        {/* Global Statistics (Start) */}
 
-                       
+
+                        {/* Country Search Box (Start) */}
+                        <div className="container-fluid">
+
+                            <form onSubmit={ (e)=> e.preventDefault()}>
+                                <label htmlFor="country">Search By Country</label>
+                                <div className="d-flex">
+                                    <select name="country"className="custom-select w-75 mr-2" id="select-country" required> 
+                                        <option value="none" selected disabled>Select Country</option>
+                                        {
+                                            this.state.countryName.map( (item,i)=>
+                                                <option key={i} value={item}>{item}</option>
+
+                                            )  
+                                        }
+                                    </select>
+                                    <button type="submit" onClick={ ()=> this.fetchCountryData()} className="btn btn-theme-1 w-25">Search</button>
+                                </div>
+                            </form>
+                                
+                        </div>
+                        {/* Country Search Box (End) */}
+
+                        {/* Country States Table (Start) */}
+                        {/* <div className="container-fluid">
+                            <table className="table" id="states-table">
+                                <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Active</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                        
+                                </tbody>
+                            </table>
+                        </div> */}
+                        {/* Country States Table (End) */}
+                        
                         
                     </div>
                     <br/>

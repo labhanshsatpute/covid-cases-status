@@ -17,7 +17,6 @@
 
 a.btn-theme-1,
 button.btn-theme-1 {
-    border-radius: 7px;
     border: 2px solid var(--blue-color);
     background-color: var(--blue-color);
     color: var(--white-color);
