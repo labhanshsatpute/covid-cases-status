@@ -51,12 +51,22 @@ div.statistics-card div p.title {
 select#select-country option {
     font-size: 15px;
 }
+div.state-data-card {
+    cursor: pointer;
+    background-color: var(--white-color);
+    transition: 0.3s ease;
+}
 div.state-data-card div * {
     color: var(--dark-blue-color);
 }
-div.state-data-card:hover div.state-data-card div * {
+div.state-data-card:hover div * {
     color: var(--white-color);
 } 
+div.state-data-card:hover {
+    background-color: var(--dark-blue-color);
+    transition: 0.3s ease;
+    transform: scale(1.1); 
+}
 div.state-data-card div h5 {
     font-size: 15px;
 }
