@@ -20,11 +20,8 @@ section#home-section div.container {
 }
 div.statistics-card {
     background-color: transparent;
-    border: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 1;
-    border-radius: 5px;
     color: var(--dark-blue-color);
     transition: 0.3s ease;
 }
@@ -36,7 +33,7 @@ div.statistics-card::after {
     bottom: 0px;
     z-index: -1;
     background-color: var(--dark-blue-color);
-    border-radius: 5px;
+    border-radius: 3px;
     transition: 0.2s ease;
 }
 div.statistics-card:hover {
@@ -54,16 +51,27 @@ div.statistics-card div p.title {
 select#select-country option {
     font-size: 15px;
 }
+div.state-data-card div * {
+    color: var(--dark-blue-color);
+}
+div.state-data-card:hover div.state-data-card div * {
+    color: var(--white-color);
+} 
+div.state-data-card div h5 {
+    font-size: 15px;
+}
+div.state-data-card div p {
+    font-size: 13px;
+}
+
 
 @media (max-width:767px) {
     section#home-section div.container {
         padding-top: 30%;
         padding-bottom: 10%;
     }
-    table.overview-table tr td h5 {
-        font-size: 15px;
-    }
-    table.overview-table tr td h2 {
-        font-size: 15px;
-    }
+   img.doctors-img {
+       height: 200px;
+       width: auto;
+   }
 }

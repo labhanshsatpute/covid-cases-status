@@ -5,7 +5,7 @@
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 *.text-blue {
@@ -45,7 +45,7 @@ main {
     background-image: url('images/wave-1.svg');
     background-size: 45%;
     background-repeat: no-repeat;
-    background-position: top right;
+    background-position: 100% -1%;
 }
 a.footer-link {
     font-size: 14px;

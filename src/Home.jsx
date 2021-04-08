@@ -4,8 +4,8 @@ import './Home.css';
 const StatisticsCard = (props) => {
     return (
         <React.Fragment>
-            <div className="col-lg-4 col-md-6 col-sm-12 card-body">
-                <div className="card statistics-card">
+            <div className="col-lg-4 col-md-6 col-sm-12 p-2">
+                <div className="card statistics-card shadow-sm">
                     <div className="card-body pb-2">
                         <p className="mb-1 title">{props.title}</p>
                         <h1>{props.statistics}</h1>
@@ -29,8 +29,8 @@ class Home extends React.Component {
             TotalDeaths: 0,
             TotalRecovered: 0,
             countryName: [],
-            countryStates: [],
-            stateConfirmed: [],
+            Province: [],
+            stateData: [],
         };
     }
 
@@ -85,20 +85,16 @@ class Home extends React.Component {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData)
-            this.setState({ countryStates: []});
-            this.setState({ stateConfirmed: []});
-
-            for (let i = 0; i < 10; i++) {
-                if (!this.state.countryStates.includes(actualData[i].Province)) {
-                    this.setState({ countryStates: this.state.countryStates.concat(actualData[i].Province)});
-                    this.setState({ stateConfirmed: this.state.stateConfirmed.concat(actualData[i].Confirmed)});
+            console.log(actualData);
+            this.setState({ Province: []});
+            this.setState({ stateData: []});
+            for (let i = 0; i < actualData.length; i++) {
+                if (!this.state.Province.includes(actualData[i].Province)) {
+                    this.setState({ Province: this.state.Province.concat(actualData[i].Province)});
+                    this.setState({ stateData: this.state.stateData.concat(actualData[i])});
                 }
-                
-            }
-            console.log(this.state.countryStates);
-            console.log(this.state.stateConfirmed);
-              
+            } 
+
         }).
         catch((error)=> {
             throw(error);
@@ -111,6 +107,26 @@ class Home extends React.Component {
     }
 
     render() {
+
+        const dataArray = this.state.stateData.map(function(data, index) {
+            if (data.Province == "") {
+                data.Province = data.Country;
+            }
+            return (
+                <div key={index} className="col-lg-3 col-md-6 col-sm-12 p-2">
+                    <div className="card shadow-sm state-data-card">
+                        <div className="card-body">
+                            <h5 className="mr-auto font-weight-bold">{data.Province}</h5>
+                            <p className="mb-1">Active : {data.Active}</p>
+                            <p className="mb-1">Confirmed : {data.Confirmed}</p>
+                            <p className="mb-1">Deaths : {data.Deaths}</p>
+                            <p className="mb-0">Recovered : {data.Recovered}</p>
+                        </div>
+                    </div>
+                </div> 
+            );
+        });;
+
         return (
             <React.Fragment>
                 <section id="home-section">
@@ -119,20 +135,22 @@ class Home extends React.Component {
 
                         {/* Introduction (Start) */}
                         <div className="row">
+                            <div className="col-lg-6 col-md-12 col-sm-12 float-left card-body text-center">
+                                <img src="assets/images/img-1.svg" className="img-fluid doctors-img mx-auto" alt="doctors-image"/>
+                            </div>
                             <div className="col-lg-6 col-md-12 col-sm-1">
+                                <br/>
                                 <div className="text-lg-left text-md-center text-sm-center text-center">
                                     <p className="text-blue font-weight-bold mb-0">Stay Home Stay Safe</p>
-                                    <hr className="w-100 mx-auto"/>
+                                    <hr className="w-50"/>
                                     <h1 className="font-weight-bold display-4 text-blue">COVID - 19 <br/> Cases Statistics</h1>
                                     <hr className="w-100 mx-lg-0 mx-md-auto mx-sm-auto"/>
                                     <p className="text-blue">Get real time world wide corona virus <br/> cases statistics</p>
-                                    <a href="#Statistics" className="btn btn-theme-1 mt-2 px-4">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon"/></a>
+                                    <a href="#Statistics" className="btn btn-theme-1 mt-2 px-4 shadow-sm">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon"/></a>
                                     <br/>
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-12 col-sm-12 card-body text-center">
-                                <img src="assets/images/img-1.svg" className="img-fluid mt-3 mx-auto" alt="doctors-image"/>
-                            </div>
+                            
                         </div>
                         {/* Introduction (End) */}
 
@@ -155,62 +173,30 @@ class Home extends React.Component {
 
 
                         {/* Country Search Box (Start) */}
-                        <div className="container-fluid">
-
-                            <form onSubmit={ (e)=> e.preventDefault()}>
-                                <label htmlFor="country">Search By Country</label>
-                                <div className="d-flex">
-                                    <select name="country"className="custom-select w-75 mr-2" id="select-country" required> 
-                                        <option value="none" selected disabled>Select Country</option>
-                                        {
-                                            this.state.countryName.map( (item,i)=>
-                                                <option key={i} value={item}>{item}</option>
-
-                                            )  
-                                        }
-                                    </select>
-                                    <button type="submit" onClick={ ()=> this.fetchCountryData()} className="btn btn-theme-1 w-25">Search</button>
+                        <div>
+                            
+                            <form className="card form-group shadow-sm w-100" onSubmit={ (e)=> e.preventDefault()}>
+                                <div className="card-body">
+                                    <label htmlFor="country" className="text-blue">Search By Country</label>
+                                    <div className="d-flex">
+                                        <select name="country"className="custom-select w-75 mr-2" id="select-country" required> 
+                                            <option value="none" selected disabled>Select Country</option>
+                                            {this.state.countryName.map( (item,index)=>
+                                                <option key={index} value={item}>{item}</option>
+                                            )}
+                                        </select>
+                                        <button type="submit" onClick={ ()=> this.fetchCountryData()} className="btn btn-theme-1 w-25">Search</button>
+                                    </div>
                                 </div>
                             </form>
-                                
+                            <br/>
+
+                            <div className="row">
+                                {dataArray}
+                            </div>
+                            
                         </div>
                         {/* Country Search Box (End) */}
-
-                        {/* Country States Table (Start) */}
-                        <div className="container-fluid">
-
-                            <table className="table" id="states-table">
-                                <thead>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>Confirmed</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="border-0">
-                                            {
-                                                this.state.countryStates.map( (states,s)=> 
-                                                    
-                                                    <p key={s}>{states}</p>
-                                                    
-                                                )
-                                            }
-                                        </td>
-                                        <td className="border-0">
-                                            {
-                                                this.state.stateConfirmed.map( (confirmed,c)=> 
-                                                    
-                                                    <p key={c}>{confirmed}</p>
-                                                    
-                                                )
-                                            }
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        {/* Country States Table (End) */}
                         
                         
                     </div>
