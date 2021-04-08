@@ -30,6 +30,7 @@ class Home extends React.Component {
             TotalRecovered: 0,
             countryName: [],
             countryStates: [],
+            stateConfirmed: [],
         };
     }
 
@@ -79,18 +80,25 @@ class Home extends React.Component {
     }
 
     fetchStates(url) {
-        
         fetch(url).
         then( (jsonFormat)=> {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData);
+            console.log(actualData)
             this.setState({ countryStates: []});
-            for (let i = 0; i < 50; i++) {
-                let array = this.state.countryStates;
-                this.setState({ countryStates: array.concat( array[0] = new Array(actualData[i]))});
-            }     
+            this.setState({ stateConfirmed: []});
+
+            for (let i = 0; i < 10; i++) {
+                if (!this.state.countryStates.includes(actualData[i].Province)) {
+                    this.setState({ countryStates: this.state.countryStates.concat(actualData[i].Province)});
+                    this.setState({ stateConfirmed: this.state.stateConfirmed.concat(actualData[i].Confirmed)});
+                }
+                
+            }
+            console.log(this.state.countryStates);
+            console.log(this.state.stateConfirmed);
+              
         }).
         catch((error)=> {
             throw(error);
@@ -169,19 +177,39 @@ class Home extends React.Component {
                         {/* Country Search Box (End) */}
 
                         {/* Country States Table (Start) */}
-                        {/* <div className="container-fluid">
+                        <div className="container-fluid">
+
                             <table className="table" id="states-table">
                                 <thead>
                                     <tr>
                                         <td>Name</td>
-                                        <td>Active</td>
+                                        <td>Confirmed</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                                                        
+                                    <tr>
+                                        <td className="border-0">
+                                            {
+                                                this.state.countryStates.map( (states,s)=> 
+                                                    
+                                                    <p key={s}>{states}</p>
+                                                    
+                                                )
+                                            }
+                                        </td>
+                                        <td className="border-0">
+                                            {
+                                                this.state.stateConfirmed.map( (confirmed,c)=> 
+                                                    
+                                                    <p key={c}>{confirmed}</p>
+                                                    
+                                                )
+                                            }
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-                        </div> */}
+                        </div>
                         {/* Country States Table (End) */}
                         
                         
