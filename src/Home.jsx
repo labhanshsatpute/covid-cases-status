@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css';
 
+// / Global Statistics Card
 const StatisticsCard = (props) => {
     return (
         <React.Fragment>
@@ -8,14 +9,13 @@ const StatisticsCard = (props) => {
                 <div className="card statistics-card shadow-sm">
                     <div className="card-body pb-2">
                         <p className="mb-1 title">{props.title}</p>
-                        <h1>{props.statistics}</h1>
+                        <h1>{props.statistics.toLocaleString()}</h1>
                     </div>
                 </div>
             </div>
         </React.Fragment>
     );
 }
-
 
 class Home extends React.Component {
 
@@ -54,23 +54,6 @@ class Home extends React.Component {
         });
     }
 
-    // Fetch Country List
-    fetchcountryList() {
-        fetch("https://api.covid19api.com/countries").
-        then( (jsonFormat)=> {
-            return jsonFormat.json();
-        }).
-        then( (actualData)=> {
-            for (let i = 0; i < actualData.length; i++)
-            {
-                this.setState({ countryList: this.state.countryList.concat(actualData[i].Country)});
-            }
-        }).
-        catch((error)=> {
-            throw(error);
-        });
-    }
-
     // Getting Selected Country From Form
     fetchFormData() {
         let selectedCountry = document.getElementById('select-country').value;
@@ -82,6 +65,24 @@ class Home extends React.Component {
         this.fetchStates("https://api.covid19api.com/live/country/" + selectedCountry + "/status/confirmed/date/2020-01-21T13:13:30Z");
     }
 
+    // Fetch Country List
+    fetchcountryList() {
+        fetch("https://api.covid19api.com/countries").
+        then( (jsonFormat)=> {
+            return jsonFormat.json();
+        }).
+        then( (actualData)=> {
+            for (let i = 0; i < actualData.length; i++)
+            {
+                this.setState({ countryList: this.state.countryList.concat(actualData[i].Country)});
+                this.setState({ countryList: this.state.countryList.sort()})
+            }
+        }).
+        catch((error)=> {
+            throw(error);
+        });
+    }
+
     // Fetch States Data
     fetchStates(url) {
         fetch(url).
@@ -90,30 +91,33 @@ class Home extends React.Component {
         }).
         then( (actualData)=> {
             this.setState({ stateData: []});
-            let fetchedStatesArray = [];
-            for (let i = actualData.length - 1; i > 0; i--) {
-                if (!fetchedStatesArray.includes(actualData[i].Province)) {
-                    fetchedStatesArray.push(actualData[i].Province);
-                    this.setState({ stateData: this.state.stateData.concat(actualData[i])});
+            if (actualData.length > 0) {
+                let fetchedStatesArray = [];
+                for (let i = actualData.length - 1; i > 0; i--) {
+                    if (!fetchedStatesArray.includes(actualData[i].Province)) {
+                        fetchedStatesArray.push(actualData[i].Province);
+                        this.setState({ stateData: this.state.stateData.concat(actualData[i])});
+                    }
                 }
             }
+            
         }).
         catch((error)=> {
             throw(error);  
         });
     }
 
+    // Fetch Country Data
     fetchCountry(url) {
         fetch(url).
         then( (jsonFormat)=> {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData);
-            this.setState({ countryData: []});
-            this.setState({ countryData: this.state.countryData.concat(actualData[actualData.length - 1])});
-            console.log(this.state.countryData);
-               
+            if (actualData.length > 1) {
+                this.setState({ countryData: []});
+                this.setState({ countryData: this.state.countryData.concat(actualData[actualData.length - 1])}); 
+            }
         }).
         catch((error)=> {
             throw(error);
@@ -137,12 +141,12 @@ class Home extends React.Component {
                 <div key={index} className="col-lg-3 col-md-6 col-sm-12 p-2">
                     <div className="card shadow-sm state-data-card">
                         <div className="card-body">
-                            <h5 className="mr-auto font-weight-bold">{data.Province}</h5>
+                            <h5 className="mr-auto font-weight-bold">{data.Province.toLocaleString()}</h5>
                             <hr className="mt-1 mb-2"/>
-                            <p className="mb-1">Active : {data.Active}</p>
-                            <p className="mb-1">Confirmed : {data.Confirmed}</p>
-                            <p className="mb-1">Deaths : {data.Deaths}</p>
-                            <p className="mb-0">Recovered : {data.Recovered}</p>
+                            <p className="mb-1">Active : {data.Active.toLocaleString()}</p>
+                            <p className="mb-1">Confirmed : {data.Confirmed.toLocaleString()}</p>
+                            <p className="mb-1">Deaths : {data.Deaths.toLocaleString()}</p>
+                            <p className="mb-0">Recovered : {data.Recovered.toLocaleString()}</p>
                         </div>
                     </div>
                 </div> 
@@ -157,42 +161,42 @@ class Home extends React.Component {
                         <h2 className="text-blue d-inline-block font-weight-bolder">{data.Country}</h2>
                         <div className="row mt-2">
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details">
+                                <div className="card country-data-card-details border-warning shadow-sm">
                                     <div className="card-header text-center bg-warning">
                                         <p className="text-white mb-0">Confirmed</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Confirmed}</h4>
+                                        <h4 className="text-blue">{data.Confirmed.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details">
+                                <div className="card country-data-card-details border-danger shadow-sm">
                                     <div className="card-header text-center bg-danger">
                                         <p className="text-white mb-0">Deaths</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Deaths}</h4>
+                                        <h4 className="text-blue">{data.Deaths.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details">
+                                <div className="card country-data-card-details border-primary shadow-sm">
                                     <div className="card-header text-center bg-primary">
                                         <p className="text-white mb-0">Active</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Active}</h4>
+                                        <h4 className="text-blue">{data.Active.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details">
+                                <div className="card country-data-card-details border-success shadow-sm">
                                     <div className="card-header text-center bg-success">
                                         <p className="text-white mb-0">Recovered</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Recovered}</h4>
+                                        <h4 className="text-blue font-weight-bold">{data.Recovered.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +270,7 @@ class Home extends React.Component {
                             {countryData}
                             <br/>
 
-                            <div>
+                            <div className="px-1">
                                 <h5 className="text-blue">States Data</h5>
                                 <div className="row">
                                     {stateData}
