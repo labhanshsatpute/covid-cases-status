@@ -99,8 +99,7 @@ class Home extends React.Component {
                         this.setState({ stateData: this.state.stateData.concat(actualData[i])});
                     }
                 }
-            }
-            
+            }  
         }).
         catch((error)=> {
             throw(error);  
@@ -115,6 +114,7 @@ class Home extends React.Component {
         }).
         then( (actualData)=> {
             if (actualData.length > 1) {
+                console.log(actualData);
                 this.setState({ countryData: []});
                 this.setState({ countryData: this.state.countryData.concat(actualData[actualData.length - 1])}); 
             }
@@ -138,7 +138,7 @@ class Home extends React.Component {
                 data.Province = data.Country;
             }
             return (
-                <div key={index} className="col-lg-3 col-md-6 col-sm-12 p-2">
+                <div key={index} className="col-lg-3 col-md-6 col-sm-12 p-3">
                     <div className="card shadow-sm state-data-card">
                         <div className="card-body">
                             <h5 className="mr-auto font-weight-bold">{data.Province.toLocaleString()}</h5>
@@ -153,12 +153,20 @@ class Home extends React.Component {
             );
         });
 
+        // Country Data (Start)
         const countryData = this.state.countryData.map(function(data, index) {
+            let date =  data.Date;
+            date = date.toString();
+            date = date.slice(0,-10);
             return (
-                <div key={index} className="card shadow-sm country-data-card">
+                <div key={index} className="card shadow-sm country-data-card bg-light">
                     <div className="card-body pb-2">
+
+                        <p className="text-blue float-right">Updated on : {date}</p>
                         <img src={"https://flagcdn.com/36x27/" + data.CountryCode.toLowerCase() + ".png"} className="d-inline-block mr-2 mt-n3 img-thumbnail" alt={data.Country}/>
                         <h2 className="text-blue d-inline-block font-weight-bolder">{data.Country}</h2>
+
+                        <hr/>
                         <div className="row mt-2">
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
                                 <div className="card country-data-card-details border-warning shadow-sm">
@@ -166,7 +174,7 @@ class Home extends React.Component {
                                         <p className="text-white mb-0">Confirmed</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Confirmed.toLocaleString()}</h4>
+                                        <h4 className="text-blue font-weight-bold">{data.Confirmed.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +184,7 @@ class Home extends React.Component {
                                         <p className="text-white mb-0">Deaths</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Deaths.toLocaleString()}</h4>
+                                        <h4 className="text-blue font-weight-bold">{data.Deaths.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +194,7 @@ class Home extends React.Component {
                                         <p className="text-white mb-0">Active</p> 
                                     </div>
                                     <div className="card-body text-center pb-2">
-                                        <h4 className="text-blue">{data.Active.toLocaleString()}</h4>
+                                        <h4 className="text-blue font-weight-bold">{data.Active.toLocaleString()}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -200,11 +208,20 @@ class Home extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        <hr/>
+                        
+                        <h5 className="text-blue font-weight-bold">States Data</h5>
+                        <div className="row">
+                            {stateData}
+                        </div>
+                        
                     </div>
                 </div>
             );
         });
+        // Country Data (End)
 
         return (
             <React.Fragment>
@@ -249,36 +266,27 @@ class Home extends React.Component {
 
 
                         {/* Country Search Box (Start) */}
-                        <div className="container-fluid">
-                            
-                            <div className="card shadow-sm">
-                                <div className="card-body">
-                                    <label htmlFor="country" className="text-blue">Search By Country</label>
-                                    <div className="d-flex">
-                                        <select name="country"className="custom-select w-75 mr-2" id="select-country" required> 
-                                            <option value="none" selected disabled>Select Country</option>
-                                            {this.state.countryList.map( (item,index)=>
-                                                <option key={index} value={item}>{item}</option>
-                                            )}
-                                        </select>
-                                        <button onClick={ ()=> this.fetchFormData()} className="btn btn-theme-1 w-25">Search</button>
-                                    </div>
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <label htmlFor="country" className="text-blue">Search By Country</label>
+                                <div className="d-flex">
+                                    <select name="country"className="custom-select w-75 mr-2" id="select-country" required> 
+                                        <option value="none" selected disabled>Select Country</option>
+                                        {this.state.countryList.map( (item,index)=>
+                                            <option key={index} value={item}>{item}</option>
+                                        )}
+                                    </select>
+                                    <button onClick={ ()=> this.fetchFormData()} className="btn btn-theme-1 w-25">Search</button>
                                 </div>
                             </div>
-                            <br/>
-
-                            {countryData}
-                            <br/>
-
-                            <div className="px-1">
-                                <h5 className="text-blue">States Data</h5>
-                                <div className="row">
-                                    {stateData}
-                                </div>
-                            </div>
-                            
                         </div>
                         {/* Country Search Box (End) */}
+
+                        {/* Country Data Card (Start) */}
+                        <br/>
+                        {countryData}
+                        <br/>
+                        {/* Country Data Card (End) */}
                         
                     </div>
                     <br/>

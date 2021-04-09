@@ -19,6 +19,7 @@ section#home-section div.container {
     padding-bottom: 5%;
 }
 div.statistics-card {
+    cursor: pointer;
     background-color: transparent;
     position: relative;
     z-index: 1;
