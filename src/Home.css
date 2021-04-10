@@ -20,34 +20,33 @@ section#home-section div.container {
 }
 div.statistics-card {
     cursor: pointer;
-    background-color: transparent;
+    background-color: var(--white-color);
     position: relative;
-    z-index: 1;
     color: var(--dark-blue-color);
     transition: 0.3s ease;
+    z-index: 1;
 }
 div.statistics-card::after {
     content: " ";
     position: absolute;
     height: 3%;
-    width: 100%;
+    width: 0%;
     bottom: 0px;
-    z-index: -1;
     background-color: var(--dark-blue-color);
     border-radius: 3px;
     transition: 0.2s ease;
 }
 div.statistics-card:hover {
-    color: var(--white-color);
-    transform: scale(1.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     transition: 0.2s ease;
+    z-index: 5;
 }
 div.statistics-card:hover::after {
-    height: 100%;
+    width: 100%;
     transition: 0.3s ease;
 }
 div.statistics-card div p.title {
-    font-size: 17px;
+    font-size: 15px;
 }
 select#select-country option {
     font-size: 15px;

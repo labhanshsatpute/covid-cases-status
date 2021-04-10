@@ -42,6 +42,7 @@ class Home extends React.Component {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
+            console.log(actualData);
             this.setState({ NewConfirmed: (actualData.Global.NewConfirmed)});
             this.setState({ NewDeaths: (actualData.Global.NewDeaths)});
             this.setState({ NewRecovered: (actualData.Global.NewRecovered)});
@@ -159,10 +160,10 @@ class Home extends React.Component {
             date = date.toString();
             date = date.slice(0,-10);
             return (
-                <div key={index} className="card shadow-sm country-data-card bg-light">
+                <div key={index} className="card shadow-sm country-data-card bg-white">
                     <div className="card-body pb-2">
 
-                        <p className="text-blue float-right">Updated on : {date}</p>
+                        <p className="text-blue float-right">Updated on {date}</p>
                         <img src={"https://flagcdn.com/36x27/" + data.CountryCode.toLowerCase() + ".png"} className="d-inline-block mr-2 mt-n3 img-thumbnail" alt={data.Country}/>
                         <h2 className="text-blue d-inline-block font-weight-bolder">{data.Country}</h2>
 
@@ -211,8 +212,7 @@ class Home extends React.Component {
 
                         </div>
                         <hr/>
-                        
-                        <h5 className="text-blue font-weight-bold">States Data</h5>
+
                         <div className="row">
                             {stateData}
                         </div>
@@ -231,9 +231,8 @@ class Home extends React.Component {
 
                         {/* Introduction (Start) */}
                         <div className="row">
-                            <div className="col-lg-6 col-md-12 col-sm-12 float-left card-body text-center">
-                                <img src="assets/images/img-1.svg" className="img-fluid doctors-img mx-auto" alt="doctors-image"/>
-                            </div>
+                            
+
                             <div className="col-lg-6 col-md-12 col-sm-1">
                                 <br/>
                                 <div className="text-lg-left text-md-center text-sm-center text-center">
@@ -246,6 +245,10 @@ class Home extends React.Component {
                                     <br/>
                                 </div>
                             </div>
+                            <div className="col-lg-6 col-md-12 col-sm-12 float-left card-body text-center">
+                                <br/>
+                                <img src="assets/images/img-1.svg" className="img-fluid doctors-img mx-auto" alt="doctors-image"/>
+                            </div>
                         </div>
                         {/* Introduction (End) */}
 
@@ -253,7 +256,7 @@ class Home extends React.Component {
                         <div className="container" id="Statistics">
                             <h2 className="text-blue">Global Statistics</h2>
                             <hr className="w-25"/>
-                            <div className="row mt-3">
+                            <div className="row">
                                 <StatisticsCard title="New Confirmed" statistics={this.state.NewConfirmed}/>
                                 <StatisticsCard title="New Deaths" statistics={this.state.NewDeaths}/>
                                 <StatisticsCard title="New Recovered" statistics={this.state.NewRecovered}/>
@@ -268,24 +271,23 @@ class Home extends React.Component {
                         {/* Country Search Box (Start) */}
                         <div className="card shadow-sm">
                             <div className="card-body">
-                                <label htmlFor="country" className="text-blue">Search By Country</label>
                                 <div className="d-flex">
-                                    <select name="country"className="custom-select w-75 mr-2" id="select-country" required> 
+                                    <select name="country"className="custom-select w-75 mr-2 custom-select-lg" id="select-country" required> 
                                         <option value="none" selected disabled>Select Country</option>
                                         {this.state.countryList.map( (item,index)=>
                                             <option key={index} value={item}>{item}</option>
                                         )}
                                     </select>
-                                    <button onClick={ ()=> this.fetchFormData()} className="btn btn-theme-1 w-25">Search</button>
+                                    <button onClick={ ()=> this.fetchFormData()} className="btn btn-theme-1 w-25 shadow-sm">Search</button>
                                 </div>
                             </div>
                         </div>
                         {/* Country Search Box (End) */}
 
                         {/* Country Data Card (Start) */}
-                        <br/>
-                        {countryData}
-                        <br/>
+                        <div className="mt-5">
+                            {countryData}
+                        </div>
                         {/* Country Data Card (End) */}
                         
                     </div>
