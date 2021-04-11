@@ -51,6 +51,14 @@ div.statistics-card div p.title {
 select#select-country option {
     font-size: 15px;
 }
+div.select-country div select {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+div.select-country div button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
 div.state-data-card {
     cursor: pointer;
     background-color: var(--white-color);

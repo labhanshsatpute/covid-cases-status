@@ -42,13 +42,25 @@ class Home extends React.Component {
             return jsonFormat.json();
         }).
         then( (actualData)=> {
-            console.log(actualData);
             this.setState({ NewConfirmed: (actualData.Global.NewConfirmed)});
             this.setState({ NewDeaths: (actualData.Global.NewDeaths)});
             this.setState({ NewRecovered: (actualData.Global.NewRecovered)});
             this.setState({ TotalConfirmed: (actualData.Global.TotalConfirmed)});
             this.setState({ TotalDeaths: (actualData.Global.TotalDeaths)});
             this.setState({ TotalRecovered: (actualData.Global.TotalRecovered)});
+        }).
+        catch((error)=> {
+            throw(error);
+        });
+    }
+
+    fetchGraph() {
+        fetch("https://api.covid19api.com/summary").
+        then( (jsonFormat)=> {
+            return jsonFormat.json();
+        }).
+        then( (actualData)=> {
+            console.log(actualData);
         }).
         catch((error)=> {
             throw(error);
@@ -129,6 +141,7 @@ class Home extends React.Component {
     componentDidMount() {
         this.fetchSummary();
         this.fetchcountryList();
+        this.fetchGraph();
     }
 
     render() {
@@ -254,7 +267,7 @@ class Home extends React.Component {
 
                         {/* Global Statistics (Start) */}
                         <div className="container" id="Statistics">
-                            <h2 className="text-blue">Global Statistics</h2>
+                            <h2 className="text-blue font-weight-bold">Global Statistics</h2>
                             <hr className="w-25"/>
                             <div className="row">
                                 <StatisticsCard title="New Confirmed" statistics={this.state.NewConfirmed}/>
@@ -269,10 +282,10 @@ class Home extends React.Component {
 
 
                         {/* Country Search Box (Start) */}
-                        <div className="card shadow-sm">
+                        <div className="card shadow-sm select-country">
                             <div className="card-body">
                                 <div className="d-flex">
-                                    <select name="country"className="custom-select w-75 mr-2 custom-select-lg" id="select-country" required> 
+                                    <select name="country"className="custom-select w-75 custom-select-lg" id="select-country" required> 
                                         <option value="none" selected disabled>Select Country</option>
                                         {this.state.countryList.map( (item,index)=>
                                             <option key={index} value={item}>{item}</option>
