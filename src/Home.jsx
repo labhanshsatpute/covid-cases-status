@@ -6,10 +6,10 @@ const StatisticsCard = (props) => {
     return (
         <React.Fragment>
             <div className="col-lg-4 col-md-6 col-sm-12 p-2">
-                <div className="card statistics-card shadow-sm">
+                <div className="card statistics-card shadow-sm" data-aos="zoom-in">
                     <div className="card-body pb-2">
                         <p className="mb-1 title">{props.title}</p>
-                        <h1>{props.statistics.toLocaleString()}</h1>
+                        <h1 className="font-weight-bold">{props.statistics.toLocaleString()}</h1>
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@ class Home extends React.Component {
                 data.Province = data.Country;
             }
             return (
-                <div key={index} className="col-lg-3 col-md-6 col-sm-12 p-3">
+                <div key={index} className="col-lg-3 col-md-6 col-sm-12 p-3" data-aos="zoom-in">
                     <div className="card shadow-sm state-data-card">
                         <div className="card-body">
                             <h5 className="mr-auto font-weight-bold">{data.Province.toLocaleString()}</h5>
@@ -182,7 +182,7 @@ class Home extends React.Component {
 
                         <hr/>
                         <div className="row mt-2">
-                            <div className="col-lg-3 col-md-3 col-sm-6 p-3">
+                            <div className="col-lg-3 col-md-3 col-sm-6 p-3" data-aos="fade-up">
                                 <div className="card country-data-card-details border-warning shadow-sm">
                                     <div className="card-header text-center bg-warning">
                                         <p className="text-white mb-0">Confirmed</p> 
@@ -193,7 +193,7 @@ class Home extends React.Component {
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details border-danger shadow-sm">
+                                <div className="card country-data-card-details border-danger shadow-sm" data-aos="fade-up">
                                     <div className="card-header text-center bg-danger">
                                         <p className="text-white mb-0">Deaths</p> 
                                     </div>
@@ -203,7 +203,7 @@ class Home extends React.Component {
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details border-primary shadow-sm">
+                                <div className="card country-data-card-details border-primary shadow-sm" data-aos="fade-up">
                                     <div className="card-header text-center bg-primary">
                                         <p className="text-white mb-0">Active</p> 
                                     </div>
@@ -213,7 +213,7 @@ class Home extends React.Component {
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-6 p-3">
-                                <div className="card country-data-card-details border-success shadow-sm">
+                                <div className="card country-data-card-details border-success shadow-sm" data-aos="fade-up">
                                     <div className="card-header text-center bg-success">
                                         <p className="text-white mb-0">Recovered</p> 
                                     </div>
@@ -249,24 +249,24 @@ class Home extends React.Component {
                             <div className="col-lg-6 col-md-12 col-sm-1">
                                 <br/>
                                 <div className="text-lg-left text-md-center text-sm-center text-center">
-                                    <p className="text-blue font-weight-bold mb-0">Stay Home Stay Safe</p>
+                                    <p className="text-blue font-weight-bold mb-0" data-aos="fade-right" data-aos-delay="100">Stay Home Stay Safe</p>
                                     <hr className="w-50"/>
-                                    <h1 className="font-weight-bold display-4 text-blue">COVID - 19 <br/> Cases Statistics</h1>
+                                    <h1 className="font-weight-bold display-4 text-blue" data-aos="fade-right" data-aos-delay="250">COVID - 19 <br/> Cases Statistics</h1>
                                     <hr className="w-100 mx-lg-0 mx-md-auto mx-sm-auto"/>
-                                    <p className="text-blue">Get real time world wide corona virus <br/> cases statistics</p>
-                                    <a href="#Statistics" className="btn btn-theme-1 mt-2 px-4 shadow-sm">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon"/></a>
+                                    <p className="text-blue" data-aos="fade-right" data-aos-delay="350">Get real time world wide corona virus <br/> cases statistics</p>
+                                    <a href="#Statistics" className="btn btn-theme-1 mt-2 px-4 shadow-sm" data-aos="fade-right" data-aos-delay="400">Get Started<img src="assets/icons/arrow-right.svg" alt="arrow-right-icon" className="btn-icon"/></a>
                                     <br/>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-12 col-sm-12 float-left card-body text-center">
                                 <br/>
-                                <img src="assets/images/img-1.svg" className="img-fluid doctors-img mx-auto" alt="doctors-image"/>
+                                <img src="assets/images/img-1.svg" className="img-fluid doctors-img mx-auto" alt="doctors-image" data-aos="fade-left" data-aos-delay="500"/>
                             </div>
                         </div>
                         {/* Introduction (End) */}
 
                         {/* Global Statistics (Start) */}
-                        <div className="container" id="Statistics">
+                        <div className="container" data-aos="fade-up">
                             <h2 className="text-blue font-weight-bold">Global Statistics</h2>
                             <hr className="w-25"/>
                             <div className="row">
@@ -282,7 +282,7 @@ class Home extends React.Component {
 
 
                         {/* Country Search Box (Start) */}
-                        <div className="card shadow-sm select-country">
+                        <div className="card shadow-sm select-country" data-aos="fade-up">
                             <div className="card-body">
                                 <div className="d-flex">
                                     <select name="country"className="custom-select w-75 custom-select-lg" id="select-country" required> 
@@ -298,7 +298,7 @@ class Home extends React.Component {
                         {/* Country Search Box (End) */}
 
                         {/* Country Data Card (Start) */}
-                        <div className="mt-5">
+                        <div className="mt-5" data-aos="fade-up">
                             {countryData}
                         </div>
                         {/* Country Data Card (End) */}

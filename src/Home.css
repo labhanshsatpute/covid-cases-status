@@ -37,7 +37,7 @@ div.statistics-card::after {
     transition: 0.2s ease;
 }
 div.statistics-card:hover {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
     transition: 0.2s ease;
     z-index: 5;
 }

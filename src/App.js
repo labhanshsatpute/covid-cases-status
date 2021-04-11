@@ -6,8 +6,14 @@ import Footer from './components/Footer';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Preloader from './components/Preloader';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const App = () => {
+
+    AOS.init({
+        offset: 100,
+    });
 
     const [display,setDisplay] = useState("block");
 

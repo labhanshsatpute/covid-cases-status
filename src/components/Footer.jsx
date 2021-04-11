@@ -11,11 +11,11 @@ const Footer = () => {
                 </div>
                 <div className="card-body footer-2">
                     <div className="container">
-                        <a href="#" className="card-link footer-link text-white d-lg-inline-block d-md-inline-block d-sm-block">Developed by Labhansh Satpute</a>
+                        <a href="https://www.linkedin.com/in/labhanshsatpute/" className="card-link footer-link text-white d-lg-inline-block d-md-inline-block d-sm-block">Developed by Labhansh Satpute</a>
                         <div className="mt-3 d-lg-inline-block d-md-inline-block d-sm-block float-lg-right float-md-right float-sm-left mt-lg-0 my-md-2 my-sm-3">
-                            <a href="#" className="card-link d-inline-block"><img src="assets/icons/facebook.svg" alt="labhansh-satpute-facebook"/></a>
-                            <a href="#" className="card-link d-inline-block"><img src="assets/icons/twitter.svg" alt="labhansh-satpute-twitter"/></a>
-                            <a href="#" className="card-link d-inline-block"><img src="assets/icons/linkedin.svg" alt="labhansh-satpute-linkedin"/></a>
+                            <a href="https://www.facebook.com/labhansh.satpute.5" className="card-link d-inline-block"><img src="assets/icons/facebook.svg" alt="labhansh-satpute-facebook"/></a>
+                            <a href="https://twitter.com/LabhanshSatpute" className="card-link d-inline-block"><img src="assets/icons/twitter.svg" alt="labhansh-satpute-twitter"/></a>
+                            <a href="https://www.linkedin.com/in/labhanshsatpute/" className="card-link d-inline-block"><img src="assets/icons/linkedin.svg" alt="labhansh-satpute-linkedin"/></a>
                         </div>
                     </div>
                 </div>
